@@ -1,0 +1,102 @@
+/**
+ * purpose: to create appointment booking system welcome page,booking and receipt
+ * programmer: amin, aini, aina
+ * 8 July 2024
+ */
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+public class HospitalBooking implements ActionListener {
+    // Declaration Variables
+    private JFrame frame;
+    private JComboBox<String> departmentBox, daysBox;
+    private JRadioButton[] radioTime;
+    private JButton btnNext;
+    private String time = "";
+
+    public HospitalBooking() {
+        String[] departments = {
+            "Family Medicine", "Dermatology", "Cardiology",
+            "Optometrist", "Neurosurgery", "Pediatric",
+            "Pulmonology", "Nephrology"
+        };
+        String[] days = {
+            "Monday", "Tuesday", "Wednesday", "Thursday",
+            "Friday"
+        };
+
+        departmentBox = new JComboBox<>(departments);
+        daysBox = new JComboBox<>(days);
+        radioTime = new JRadioButton[8];
+        radioTime[0] = new JRadioButton("09:00am");
+        radioTime[1] = new JRadioButton("10:00am");
+        radioTime[2] = new JRadioButton("11:00am");
+        radioTime[3] = new JRadioButton("01:00pm");
+        radioTime[4] = new JRadioButton("02:00pm");
+        radioTime[5] = new JRadioButton("03:00pm");
+        radioTime[6] = new JRadioButton("04:00pm");
+        radioTime[7] = new JRadioButton("05:00pm");
+
+        ButtonGroup groupTime = new ButtonGroup();
+        for (int i = 0; i < 8; i++) {
+            groupTime.add(radioTime[i]);
+        }
+
+        // PANEL DEPARTMENT
+        JPanel panelDepartment = new JPanel();
+        panelDepartment.setLayout(new GridLayout(1, 0));
+        panelDepartment.setBounds(0, 0, 500, 50);
+        panelDepartment.setBorder(BorderFactory.createTitledBorder("Choose DEPARTMENT"));
+        panelDepartment.add(departmentBox);
+
+        // PANEL DAY
+        JPanel panelDay = new JPanel();
+        panelDay.setLayout(new GridLayout(1, 0));
+        panelDay.setBounds(0, 50, 500, 50);
+        panelDay.setBorder(BorderFactory.createTitledBorder("Choose DAY"));
+        panelDay.add(daysBox);
+
+        // PANEL TIME
+        JPanel panelTime = new JPanel();
+        panelTime.setBounds(0, 100, 500, 80);
+        for (int i = 0; i < 8; i++) {
+            panelTime.add(radioTime[i]);
+        }
+        panelTime.setBorder(BorderFactory.createTitledBorder("Choose TIME"));
+
+        // NEXT BUTTON
+        btnNext = new JButton("NEXT");
+        btnNext.setBounds(200, 250, 100, 40);
+
+        // FRAME
+        frame = new JFrame();
+        frame.setSize(520, 350);
+        frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+        frame.add(panelDepartment);
+        frame.add(panelDay);
+        frame.add(panelTime);
+        frame.add(btnNext);
+
+        // REGISTER LISTENER
+        btnNext.addActionListener(this);
+        for (int i = 0; i < 8; i++) {
+            radioTime[i].addActionListener(this);
+        }
+        departmentBox.addActionListener(this);
+        daysBox.addActionListener(this);
+    } // end of constructor
+
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < 8; i++)
+            if (e.getSource() == radioTime[i])
+                time = radioTime[i].getText();
+        if (e.getSource() == btnNext) {
+            new HospitalReceipt(departmentBox.getSelectedItem().toString(), time, daysBox.getSelectedItem().toString());
+            frame.dispose();
+        } // end of if
+    } // end of method
+} // end of class
