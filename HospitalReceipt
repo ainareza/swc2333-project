@@ -1,0 +1,59 @@
+/**
+ * purpose: to create appointment booking system welcome page, booking and receipt
+ * programmer: amin, aini, aina
+ * 8 July 2024
+ */
+import javax.swing.JFrame;
+import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+
+class HospitalReceipt extends JFrame implements ActionListener {
+    public HospitalReceipt(String department, String time, String day) {
+        // Create receipt frame
+        setTitle("Receipt");
+        setSize(500, 500);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Create Panel
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        add(panel);
+
+        // Create Label
+        JLabel label = new JLabel(new ImageIcon("hospital.png"));
+        panel.add(label, BorderLayout.NORTH);
+
+        // Create receipt text area
+        JTextArea receiptTextArea = new JTextArea(
+            "Department: " + department + "\n" +
+            "Appointment Time: " + time + "\n" +
+            "Appointment Day: " + day + "\n"
+        );
+        receiptTextArea.setEditable(false);
+        receiptTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        panel.add(receiptTextArea, BorderLayout.CENTER);
+
+        receiptTextArea.append("\n\n\n");
+        receiptTextArea.append("* Thank you and have a nice day! *\n");
+        receiptTextArea.append("* Please be on time for your appointment! *");
+
+        // Create close button
+        JButton closeButton = new JButton("Close");
+        closeButton.addActionListener(this);
+        panel.add(closeButton, BorderLayout.SOUTH);
+
+        setVisible(true);
+    } // end of constructor
+
+    public void actionPerformed(ActionEvent e) {
+        dispose();
+    } // end of method
+} // end of class
