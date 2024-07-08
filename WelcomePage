@@ -1,0 +1,58 @@
+/**
+ * purpose: to create an appointment booking system welcome page
+ * programmer: amin, aini,aina
+ * 8 July 2024
+ */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class WelcomePage extends JFrame implements ActionListener {
+    JButton startButton;
+
+    public WelcomePage() {
+        //Create a title for Hospital
+        setTitle("Welcome Pantai Hospital Medical Appointment Booking System");
+        setSize(600, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        //Create image icon logo
+        ImageIcon logo = new ImageIcon("H-logo.jpg");
+        JLabel logoLabel = new JLabel(logo);
+
+        //Create a Panel
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        add(panel);
+
+        //Create Label
+        JLabel label = new JLabel("Welcome to Pantai Hospital Medical", SwingConstants.CENTER);
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+        label.setBounds(50, 50, 500, 50); // Setting bounds for the label
+        panel.add(label);
+
+        //Create Start Button
+        startButton = new JButton("Start");
+        startButton.addActionListener(this);
+        startButton.setBounds(250, 500, 100, 40); // Setting bounds for the button
+        panel.add(startButton);
+
+        // Add logo label
+        logoLabel.setBounds(250, 150, 100, 100); // Setting bounds for the logo
+        panel.add(logoLabel);
+
+        setVisible(true);
+    }//end of constructor
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == startButton) {
+            dispose();
+            new HospitalBooking();
+        }//end of if
+    }//end of method
+
+    public static void main(String[] args) {
+        new WelcomePage();
+    }//end of main
+}//end of class
